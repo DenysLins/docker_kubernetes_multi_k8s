@@ -13,8 +13,14 @@ before_install:
   - gcloud config set project docker-kubernets-gcp
   - gcloud config set compute/zone southamerica-east1-a
   - gcloud container clusters get-credentials docker-kubernetes-gcp
-  - echo "DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker build -t denyslins/udemy-react-multi-client -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true denyslins/udemy-react-multi-client npm run test -- --coverage
+
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master
