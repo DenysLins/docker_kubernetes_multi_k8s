@@ -15,10 +15,10 @@ spec:
       containers:
         - name: worker
           image: denyslins/udemy-react-multi-worker:latest
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "1000m"
+          # resources:
+          #   limits:
+          #     memory: "256Mi"
+          #     cpu: "1000m"
           env:
             - name: REDIS_HOST
               value: redis-cluster-ip-service
