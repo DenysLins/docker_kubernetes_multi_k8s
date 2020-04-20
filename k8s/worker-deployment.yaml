@@ -17,8 +17,8 @@ spec:
           image: denyslins/udemy-react-multi-worker:latest
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "500m"
+              memory: "256Mi"
+              cpu: "1000m"
           env:
             - name: REDIS_HOST
               value: redis-cluster-ip-service
