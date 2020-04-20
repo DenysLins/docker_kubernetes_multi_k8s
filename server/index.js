@@ -23,7 +23,7 @@ const pgClient = new Pool({
 pgClient.on('error', () => console.log('Lost PG connection'))
 
 pgClient
-  .query('CREATE TABLE IF NOT EXISTS values (number INT UNIQUE)')
+  .query('CREATE TABLE IF NOT EXISTS used_values (number INT UNIQUE)')
   .catch(err => console.log(err))
 
 // Redis Client Setup
@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/values/all', async (req, res) => {
-  const values = await pgClient.query('SELECT * FROM values')
+  const values = await pgClient.query('SELECT * FROM used_values')
   res.send(values.rows)
 })
 
@@ -59,7 +59,7 @@ app.post('/values', async (req, res) => {
   }
   redisClient.hset('values', index, 'Nothing yet')
   redisPublisher.publish('insert', index)
-  pgClient.query('INSERT INTO values(number) VALUES($1) ON CONFLICT (number) DO NOTHING;', [index])
+  pgClient.query('INSERT INTO used_values(number) VALUES($1) ON CONFLICT (number) DO NOTHING;', [index])
   res.send({ working: true })
 })
 
