@@ -1,4 +1,4 @@
-echo 'Deploy'
+echo 'Initializing deploy'
 
 # docker build -t denyslins/udemy-react-multi-client -f ./client/Dockerfile.dev ./client
 # docker build -t denyslins/udemy-react-multi-server -f ./server/Dockerfile.dev ./server
@@ -9,3 +9,7 @@ echo 'Deploy'
 # docker push denyslins/udemy-react-multi-worker
 
 # kubectl apply -f k8s
+
+echo 'Finishing deploy'
+
+rm -rf service-account.json
