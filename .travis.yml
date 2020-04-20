@@ -24,3 +24,6 @@ deploy:
   script: bash ./deploy.sh
   on:
     branch: master
+
+after_deploy:
+  - rm -f service-account.json
